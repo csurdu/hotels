@@ -19,6 +19,7 @@ export class HotelsService {
     });
   }
 
+  
   // Găsește un singur hotel după ID
   async findOne(id: number): Promise<Hotel> {
     return this.hotelModel.findOne({
