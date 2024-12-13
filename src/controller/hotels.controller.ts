@@ -39,10 +39,10 @@ export class HotelsController {
   
 
   @Post()
-  create(@Body() hotel: Hotel): Promise<Hotel> {
-    return this.hotelsService.create(hotel);
+  async create(@Body() createHotelDto: any) {
+    return this.hotelsService.createHotelWithOffers(createHotelDto);
   }
-
+  
   @Put(':id')
   update(@Param('id') id: number, @Body() hotel: Partial<Hotel>): Promise<any> {
     return this.hotelsService.update(id, hotel);
@@ -52,4 +52,9 @@ export class HotelsController {
   remove(@Param('id') id: number): Promise<any> {
     return this.hotelsService.remove(id);
   }
+  @Get('best-offers/airport/:airportId')
+async findBestOffers(@Param('airportId') airportId: string, @Query('maxDistanceKm') maxDistanceKm: string) {
+  return this.hotelsService.findBestOffers(+airportId, + maxDistanceKm || 50); 
+}
+
 }

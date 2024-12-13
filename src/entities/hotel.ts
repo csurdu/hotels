@@ -1,6 +1,8 @@
-import { Column, DataType, Model, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Column, DataType, Model, Table, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { City } from './city';
 import { Region } from './region';
+import { Group } from './groups';
+import { PriceOffer } from './price_offers';
 
 @Table({
   tableName: 'hotels',
@@ -48,6 +50,19 @@ export class Hotel extends Model<Hotel> {
 
   @BelongsTo(() => City)
   City: City;
+
+  @ForeignKey(() => Group)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+  })
+  GroupID: number;
+
+  @BelongsTo(() => Group)
+  Group: Group;
+
+  @HasMany(() => PriceOffer)
+  PriceOffers: PriceOffer[];
 
   @Column({
     type: DataType.TEXT,
